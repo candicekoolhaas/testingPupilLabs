@@ -1,0 +1,7 @@
+aoi id,recording id,recording name,aoi name,average fixation duration [ms],total fixations,time to first fixation [ms],total fixation duration [ms]
+3527272a-73d5-4113-9eb0-ad4ac820f64c,140c6482-6fa5-4e7d-b251-bf70e5827ca7,2025-08-09_06:55:05,leftCard,,0,,
+3527272a-73d5-4113-9eb0-ad4ac820f64c,9a03ee47-6e8b-47f7-b7c5-dd977d9b50ca,2025-08-12_06:13:13,leftCard,1536,2,115043,3073
+3527272a-73d5-4113-9eb0-ad4ac820f64c,7173e985-be36-429d-9926-e0f29904d037,2025-08-10_02:51:33,leftCard,,0,,
+e5b0dd23-c580-4c4e-bb11-e2904c3bb5bb,140c6482-6fa5-4e7d-b251-bf70e5827ca7,2025-08-09_06:55:05,rightCard,,0,,
+e5b0dd23-c580-4c4e-bb11-e2904c3bb5bb,9a03ee47-6e8b-47f7-b7c5-dd977d9b50ca,2025-08-12_06:13:13,rightCard,927,3,118216,2782
+e5b0dd23-c580-4c4e-bb11-e2904c3bb5bb,7173e985-be36-429d-9926-e0f29904d037,2025-08-10_02:51:33,rightCard,,0,,
