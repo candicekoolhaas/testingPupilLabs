@@ -72,3 +72,36 @@ metrics_aois
 ```
 
 This one shows you, for each recording, the time until their first fixation to the AOI and the total duration of their fixations to that AOI. NA if the ET never picked up on them looking at it.
+
+## Gaze.csv
+
+```{r read in gaze data}
+gaze <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/gaze.csv", header = T)
+
+head(gaze)
+```
+
+This shows you the scanpath and whether the gaze was on the tablet (gaze.detected.on.surface) and which gaze points correspond to which fixations.
+
+If the gaze position is outside of the bounds of (0,1) then it is off-screen.
+
+## Sections.csv
+
+```{r read in sections data}
+# overriding all_sections from above
+all_sections <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/sections.csv", header = T)
+
+all_sections
+```
+
+This shows the start and end times for the encoding period in trial 1 for all recordings included in this test set. This will be useful later for vetting that all of the encoding periods are relatively the same length of time, since there doesn't seem to be a way to manually set the duration of events in Pupil Cloud without just clicking on where it starts and stops (so it will always be some ms off).
+
+## Surface_positions.csv
+
+```{r read in surface positions}
+surfaces <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/surface_positions.csv", header = T)
+
+head(surfaces)
+```
+
+"This file contains the surface locations in the scene images for all sections." Emptiness means the surface could not be detected. So its giving coordinates of the edges of the screen essentially. This may be useful for making sure all of the surfaces were detected prior to analyzing the data.
