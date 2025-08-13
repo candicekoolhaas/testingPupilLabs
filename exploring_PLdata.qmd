@@ -1,0 +1,74 @@
+---
+title: "testPupilLabs"
+format: html
+editor: visual
+---
+
+## Fixations.csv
+
+"This file contains fixations detected in the gaze data stream. The corresponding gaze samples that belong to each fixation can be determined from the gaze.csv file using the fixation id field."
+
+```{r load in the data}
+# Read in the data
+fixations <- read.csv("C:/Users/David/Downloads/Timeseries Data (1)/2025-08-09_05-27-48-e32f7cea/fixations.csv", header = T)
+
+# inspect
+head(fixations)
+```
+
+So already we can see that ROIs and events are not included in these csvs.
+
+## Sections.csv
+
+I think this is the one that has info from the enrichments.
+
+```{r load sections}
+# Read in the data
+sections <- read.csv("C:/Users/David/Downloads/Timeseries Data (1)/sections.csv", header = T)
+```
+
+I guess not. Also this file was surely from a project that had enrichments and it isn't showing up. Maybe I downloaded this in the wrong way. I right-clicked the recording and downloaded the timeseries for one recording. Instead I'll go to "Downloads" and download the timeseries for all five recordings (not all of them are mapped to enrichments though).
+
+# Try again
+
+## Sections.csv
+
+```{r load all sections hopefully}
+all_sections <- read.csv("C:/Users/David/Downloads/alldata/sections.csv")
+```
+
+Negative, it just has recording begin and end.
+
+Oh I see! These are just the raw timeseries. The information with the enrichments is an entirely separate download.
+
+# For real this time
+
+## Fixations.csv
+
+```{r actually load fixations to the surface}
+encode_fixations <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/fixations.csv", header = T)
+
+head(encode_fixations)
+```
+
+So it looks like this tells us whether the fixation was on the surface (the tablet) or not, but nothing about ROIs.
+
+## AOI_fixations.csv
+
+```{r read in aoi data}
+encode_aois <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/aoi_fixations.csv", header = T)
+
+encode_aois
+```
+
+So this file shows you every single fixation to any AOI in the enrichment in all recordings. Sadly, the eyetracker was not accurately getting the babies gaze in this test dataset (only like 3 babies are included here) so these fixations are actually from the recording that I did to test it haha.
+
+## AOI_metrics.csv
+
+```{r read in aoi metrics}
+metrics_aois <- read.csv("C:/Users/David/Downloads/Test_MARKER-MAPPER_T1_encode_csv/aoi_metrics.csv", header = T)
+
+metrics_aois
+```
+
+This one shows you, for each recording, the time until their first fixation to the AOI and the total duration of their fixations to that AOI. NA if the ET never picked up on them looking at it.
