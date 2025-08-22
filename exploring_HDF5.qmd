@@ -1,0 +1,13 @@
+---
+title: "exploring_HDF5"
+format: html
+editor: visual
+---
+
+## Exploring HDF5
+
+First read in the hdf5 data...
+
+```{r read hdf5 file}
+
+```

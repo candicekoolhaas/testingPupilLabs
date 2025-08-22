@@ -1,0 +1,87 @@
+---
+title: "look_extraction"
+author: "Jamie Donenfeld"
+date: "2025-08-18"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+
+library(readr)
+library(tidyr)
+library(dplyr)
+
+```
+
+
+read in data (edit)
+```{r setup, include=FALSE}
+
+data <- read.csv("YOUR PATHNAME")
+
+```
+
+
+```{r pressure, echo=FALSE}
+
+
+df <- data %>% dplyr::mutate(.row = dplyr::row_number())
+```
+
+
+get each string column names, make one row per name (side, condition, trial, phase) with a numLooks value
+
+```{r pressure, echo=FALSE}
+
+
+
+looks_long <- df %>%
+  tidyr::pivot_longer(
+    cols = ends_with(".numLooks"),
+    names_to      = c("side","condition","trial","phase",".value"), # pull these strings out and value = measure name
+    names_pattern = "^(?:[^.]*\\.)?(leftCard|rightCard|testCard)_(N?PI)T(\\d+)_(ENCODE|TEST)\\.(numLooks)$", #regrex code
+    values_drop_na = FALSE #don't leave it out if NA
+  ) %>%
+  dplyr::mutate(
+    trial = as.integer(trial),
+    label = paste0(side,"_",condition,"T",trial,"_",phase,".numLooks")
+  )
+
+```
+
+get each string column names, make one row per name (side, condition, trial, phase) with a start and stop value
+
+```{r pressure, echo=FALSE}
+
+times_long <- df %>%
+  tidyr::pivot_longer(
+    cols = matches("\\.([Ss]tarted|[Ss]topped)$"), #finds the start and stop time columns 
+    names_to      = c("side","condition","trial","phase",".value"),# pull these strings out and value = measure name (same as for looks_long)
+    names_pattern = "^(?:[^.]*\\.)?(leftCard|rightCard|testCard)_(N?PI)T(\\d+)_(ENCODE|TEST)\\.([Ss]tarted|[Ss]topped)$", #regrex code
+    values_drop_na = FALSE
+  ) %>%
+  dplyr::mutate(trial = as.integer(trial))
+
+
+```
+
+merge the data 
+
+```{r pressure, echo=FALSE}
+
+df <- looks_long %>%
+  dplyr::left_join(times_long, by = c(".row","side","condition","trial","phase")) %>%
+  dplyr::transmute(
+    label, side, phase, condition, trial,
+    value      = numLooks,
+    started    = suppressWarnings(as.numeric(started)),
+    stopped    = suppressWarnings(as.numeric(stopped)),
+  )
+
+df
+
+```
+
+
